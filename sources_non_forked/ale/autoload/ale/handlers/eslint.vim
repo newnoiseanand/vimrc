@@ -39,8 +39,9 @@ function! ale#handlers#eslint#GetExecutable(buffer) abort
     return ale#node#FindExecutable(a:buffer, 'javascript_eslint', s:executables)
 endfunction
 
-" Given a buffer, return an appropriate working directory for ESLint.
-function! ale#handlers#eslint#GetCwd(buffer) abort
+" Given a buffer, return a command prefix string which changes directory
+" as necessary for running ESLint.
+function! ale#handlers#eslint#GetCdString(buffer) abort
     " ESLint 6 loads plugins/configs/parsers from the project root
     " By default, the project root is simply the CWD of the running process.
     " https://github.com/eslint/rfcs/blob/master/designs/2018-simplified-package-loading/README.md
@@ -59,7 +60,7 @@ function! ale#handlers#eslint#GetCwd(buffer) abort
         let l:project_dir = !empty(l:modules_dir) ? fnamemodify(l:modules_dir, ':h:h') : ''
     endif
 
-    return !empty(l:project_dir) ? l:project_dir : ''
+    return !empty(l:project_dir) ? ale#path#CdString(l:project_dir) : ''
 endfunction
 
 function! ale#handlers#eslint#GetCommand(buffer) abort
@@ -67,7 +68,8 @@ function! ale#handlers#eslint#GetCommand(buffer) abort
 
     let l:options = ale#Var(a:buffer, 'javascript_eslint_options')
 
-    return ale#node#Executable(a:buffer, l:executable)
+    return ale#handlers#eslint#GetCdString(a:buffer)
+    \   . ale#node#Executable(a:buffer, l:executable)
     \   . (!empty(l:options) ? ' ' . l:options : '')
     \   . ' -f json --stdin --stdin-filename %s'
 endfunction

@@ -17,10 +17,11 @@ function! ale#fixers#stylelint#Fix(buffer) abort
     let l:options = ale#Var(a:buffer, 'stylelint_options')
 
     return {
-    \   'cwd': '%s:h',
-    \   'command': ale#node#Executable(a:buffer, l:executable)
+    \   'command': ale#path#BufferCdString(a:buffer)
+    \       . ale#node#Executable(a:buffer, l:executable)
+    \       . ' %t'
     \       . ale#Pad(l:options)
-    \       . ' --fix --stdin --stdin-filename %s',
-    \   'read_temporary_file': 0,
+    \       . ' --fix',
+    \   'read_temporary_file': 1,
     \}
 endfunction

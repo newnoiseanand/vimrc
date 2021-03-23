@@ -34,11 +34,19 @@ function! ale#fixers#prettier#ProcessPrettierDOutput(buffer, output) abort
     return a:output
 endfunction
 
-function! ale#fixers#prettier#GetCwd(buffer) abort
+function! ale#fixers#prettier#GetProjectRoot(buffer) abort
     let l:config = ale#path#FindNearestFile(a:buffer, '.prettierignore')
 
+    if !empty(l:config)
+        return fnamemodify(l:config, ':h')
+    endif
+
     " Fall back to the directory of the buffer
-    return !empty(l:config) ? fnamemodify(l:config, ':h') : '%s:h'
+    return fnamemodify(bufname(a:buffer), ':p:h')
+endfunction
+
+function! ale#fixers#prettier#CdProjectRoot(buffer) abort
+    return ale#path#CdString(ale#fixers#prettier#GetProjectRoot(a:buffer))
 endfunction
 
 function! ale#fixers#prettier#ApplyFixForVersion(buffer, version) abort
@@ -74,11 +82,8 @@ function! ale#fixers#prettier#ApplyFixForVersion(buffer, version) abort
         \    'graphql': 'graphql',
         \    'markdown': 'markdown',
         \    'vue': 'vue',
-        \    'svelte': 'svelte',
         \    'yaml': 'yaml',
-        \    'openapi': 'yaml',
         \    'html': 'html',
-        \    'ruby': 'ruby',
         \}
 
         for l:filetype in l:filetypes
@@ -96,8 +101,8 @@ function! ale#fixers#prettier#ApplyFixForVersion(buffer, version) abort
     " Special error handling needed for prettier_d
     if l:executable =~# 'prettier_d$'
         return {
-        \   'cwd': '%s:h',
-        \   'command':ale#Escape(l:executable)
+        \   'command': ale#path#BufferCdString(a:buffer)
+        \       . ale#Escape(l:executable)
         \       . (!empty(l:options) ? ' ' . l:options : '')
         \       . ' --stdin-filepath %s --stdin',
         \   'process_with': 'ale#fixers#prettier#ProcessPrettierDOutput',
@@ -107,8 +112,8 @@ function! ale#fixers#prettier#ApplyFixForVersion(buffer, version) abort
     " 1.4.0 is the first version with --stdin-filepath
     if ale#semver#GTE(a:version, [1, 4, 0])
         return {
-        \   'cwd': ale#fixers#prettier#GetCwd(a:buffer),
-        \   'command': ale#Escape(l:executable)
+        \   'command': ale#fixers#prettier#CdProjectRoot(a:buffer)
+        \       . ale#Escape(l:executable)
         \       . (!empty(l:options) ? ' ' . l:options : '')
         \       . ' --stdin-filepath %s --stdin',
         \}

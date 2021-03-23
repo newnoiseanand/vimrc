@@ -21,7 +21,8 @@ function! ale_linters#python#pydocstyle#GetCommand(buffer) abort
     \   ? ' run pydocstyle'
     \   : ''
 
-    return ale#Escape(l:executable) . l:exec_args
+    return ale#path#BufferCdString(a:buffer)
+    \   . ale#Escape(l:executable) . l:exec_args
     \   . ale#Pad(ale#Var(a:buffer, 'python_pydocstyle_options'))
     \   . ' %s:t'
 endfunction
@@ -65,7 +66,6 @@ endfunction
 call ale#linter#Define('python', {
 \   'name': 'pydocstyle',
 \   'executable': function('ale_linters#python#pydocstyle#GetExecutable'),
-\   'cwd': '%s:h',
 \   'command': function('ale_linters#python#pydocstyle#GetCommand'),
 \   'callback': 'ale_linters#python#pydocstyle#Handle',
 \})

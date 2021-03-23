@@ -34,11 +34,12 @@ function! ale#test#RestoreDirectory() abort
     unlet! g:dir
 endfunction
 
-" Get a filename for the current buffer using a relative path to the script.
+" Change the filename for the current buffer using a relative path to
+" the script without running autocmd commands.
 "
 " If a g:dir variable is set, it will be used as the path to the directory
 " containing the test file.
-function! ale#test#GetFilename(path) abort
+function! ale#test#SetFilename(path) abort
     let l:dir = get(g:, 'dir', '')
 
     if empty(l:dir)
@@ -49,17 +50,7 @@ function! ale#test#GetFilename(path) abort
     \   ? a:path
     \   : l:dir . '/' . a:path
 
-    return ale#path#Simplify(l:full_path)
-endfunction
-
-" Change the filename for the current buffer using a relative path to
-" the script without running autocmd commands.
-"
-" If a g:dir variable is set, it will be used as the path to the directory
-" containing the test file.
-function! ale#test#SetFilename(path) abort
-    let l:full_path = ale#test#GetFilename(a:path)
-    silent! noautocmd execute 'file ' . fnameescape(l:full_path)
+    silent! noautocmd execute 'file ' . fnameescape(ale#path#Simplify(l:full_path))
 endfunction
 
 function! s:RemoveModule(results) abort

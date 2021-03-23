@@ -273,10 +273,6 @@ function! s:ShowErrorMessage()  " {{{
     if !exists('s:resultDict')
 	return
     endif
-    if !exists('b:showing_message')
-	" ensure showing msg is always defined
-	let b:showing_message = ' '
-    endif
 
     " if there is a message on the current line,
     " then echo it 
@@ -299,3 +295,4 @@ endfunction  " }}}
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
+

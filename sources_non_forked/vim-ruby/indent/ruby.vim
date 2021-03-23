@@ -642,7 +642,8 @@ function! s:PreviousNotMSL(msl_info) abort
       " TODO (2016-10-07) Wrong/unused? How could it be "1"?
       return indent(info.plnum) - 1
       " If previous line is a continuation return its indent.
-    elseif s:Match(info.plnum, s:non_bracket_continuation_regex)
+      " TODO: the || s:IsInString() thing worries me a bit.
+    elseif s:Match(info.plnum, s:non_bracket_continuation_regex) || s:IsInString(info.plnum, strlen(line))
       return indent(info.plnum)
     endif
   endif

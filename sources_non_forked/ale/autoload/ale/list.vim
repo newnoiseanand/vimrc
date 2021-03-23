@@ -20,17 +20,11 @@ endif
 
 " Return 1 if there is a buffer with buftype == 'quickfix' in bufffer list
 function! ale#list#IsQuickfixOpen() abort
-    let l:res = getqflist({ 'winid' : winnr() })
-
-    if has_key(l:res, 'winid') && l:res.winid > 0
-        return 1
-    endif
-
-    let l:res = getloclist(0, { 'winid' : winnr() })
-
-    if has_key(l:res, 'winid') && l:res.winid > 0
-        return 1
-    endif
+    for l:buf in range(1, bufnr('$'))
+        if getbufvar(l:buf, '&buftype') is# 'quickfix'
+            return 1
+        endif
+    endfor
 
     return 0
 endfunction

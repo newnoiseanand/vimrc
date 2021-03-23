@@ -152,7 +152,6 @@ function! ale#c#ParseCFlags(path_prefix, should_quote, raw_arguments) abort
         \ || stridx(l:option, '-idirafter') == 0
         \ || stridx(l:option, '-iframework') == 0
         \ || stridx(l:option, '-include') == 0
-        \ || stridx(l:option, '-imacros') == 0
             if stridx(l:option, '-I') == 0 && l:option isnot# '-I'
                 let l:arg = join(split(l:option, '\zs')[2:], '')
                 let l:option = '-I'
@@ -491,7 +490,7 @@ function! ale#c#GetCFlags(buffer, output) abort
         endif
     endif
 
-    if empty(l:cflags) && s:CanParseMakefile(a:buffer) && !empty(a:output)
+    if s:CanParseMakefile(a:buffer) && !empty(a:output) && !empty(l:cflags)
         let l:cflags = ale#c#ParseCFlagsFromMakeOutput(a:buffer, a:output)
     endif
 
@@ -506,25 +505,19 @@ function! ale#c#GetMakeCommand(buffer) abort
     if s:CanParseMakefile(a:buffer)
         let l:path = ale#path#FindNearestFile(a:buffer, 'Makefile')
 
-        if empty(l:path)
-            let l:path = ale#path#FindNearestFile(a:buffer, 'GNUmakefile')
-        endif
-
         if !empty(l:path)
             let l:always_make = ale#Var(a:buffer, 'c_always_make')
 
-            return [
-            \   fnamemodify(l:path, ':h'),
-            \   'make -n' . (l:always_make ? ' --always-make' : ''),
-            \]
+            return ale#path#CdString(fnamemodify(l:path, ':h'))
+            \   . 'make -n' . (l:always_make ? ' --always-make' : '')
         endif
     endif
 
-    return ['', '']
+    return ''
 endfunction
 
 function! ale#c#RunMakeCommand(buffer, Callback) abort
-    let [l:cwd, l:command] = ale#c#GetMakeCommand(a:buffer)
+    let l:command = ale#c#GetMakeCommand(a:buffer)
 
     if empty(l:command)
         return a:Callback(a:buffer, [])
@@ -534,7 +527,6 @@ function! ale#c#RunMakeCommand(buffer, Callback) abort
     \   a:buffer,
     \   l:command,
     \   {b, output -> a:Callback(a:buffer, output)},
-    \   {'cwd': l:cwd},
     \)
 endfunction
 

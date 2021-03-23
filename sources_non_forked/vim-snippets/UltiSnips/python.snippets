@@ -138,7 +138,7 @@ def format_arg(arg, style):
 	elif style == NORMAL:
 		return ":%s: TODO" % arg
 	elif style == GOOGLE:
-		return "%s (%s): TODO" % (arg, arg.type or "TODO")
+		return "%s (TODO): TODO" % arg
 	elif style == JEDI:
 		return ":type %s: TODO" % arg
 	elif style == NUMPY:

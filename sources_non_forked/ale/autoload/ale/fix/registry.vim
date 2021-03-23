@@ -32,41 +32,10 @@ let s:default_registry = {
 \       'suggested_filetypes': ['python'],
 \       'description': 'Fix PEP8 issues with black.',
 \   },
-\   'buildifier': {
-\       'function': 'ale#fixers#buildifier#Fix',
-\       'suggested_filetypes': ['bzl'],
-\       'description': 'Format BUILD and .bzl files with buildifier.',
-\   },
-\   'deno': {
-\       'function': 'ale#fixers#deno#Fix',
-\       'suggested_filetypes': ['typescript'],
-\       'description': 'Fix TypeScript using deno fmt.',
-\   },
 \   'dfmt': {
 \       'function': 'ale#fixers#dfmt#Fix',
 \       'suggested_filetypes': ['d'],
 \       'description': 'Fix D files with dfmt.',
-\   },
-\   'dhall': {
-\       'function': 'ale#fixers#dhall#Fix',
-\       'suggested_filetypes': ['dhall'],
-\       'description': 'Fix Dhall files with dhall-format.',
-\   },
-\   'dhall-format': {
-\       'function': 'ale#fixers#dhall_format#Fix',
-\       'suggested_filetypes': ['dhall'],
-\       'description': 'Standard code formatter for the Dhall language',
-\       'aliases': ['dhall'],
-\   },
-\   'dhall-freeze': {
-\       'function': 'ale#fixers#dhall_freeze#Freeze',
-\       'suggested_filetypes': ['dhall'],
-\       'description': 'Add integrity checks to remote import statements of an expression for the Dhall language',
-\   },
-\   'dhall-lint': {
-\       'function': 'ale#fixers#dhall_lint#Fix',
-\       'suggested_filetypes': ['dhall'],
-\       'description': 'Standard code formatter for the Dhall language and removing dead code',
 \   },
 \   'fecs': {
 \       'function': 'ale#fixers#fecs#Fix',
@@ -112,7 +81,7 @@ let s:default_registry = {
 \   },
 \   'prettier': {
 \       'function': 'ale#fixers#prettier#Fix',
-\       'suggested_filetypes': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'json5', 'graphql', 'markdown', 'vue', 'svelte', 'html', 'yaml', 'openapi', 'ruby'],
+\       'suggested_filetypes': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'json5', 'graphql', 'markdown', 'vue', 'html', 'yaml'],
 \       'description': 'Apply prettier to a file.',
 \   },
 \   'prettier_eslint': {
@@ -163,7 +132,7 @@ let s:default_registry = {
 \   },
 \   'scalafmt': {
 \       'function': 'ale#fixers#scalafmt#Fix',
-\       'suggested_filetypes': ['sbt', 'scala'],
+\       'suggested_filetypes': ['scala'],
 \       'description': 'Fix Scala files using scalafmt',
 \   },
 \   'sorbet': {
@@ -190,11 +159,6 @@ let s:default_registry = {
 \       'function': 'ale#fixers#swiftformat#Fix',
 \       'suggested_filetypes': ['swift'],
 \       'description': 'Apply SwiftFormat to a file.',
-\   },
-\   'apple-swift-format': {
-\       'function': 'ale#fixers#appleswiftformat#Fix',
-\       'suggested_filetypes': ['swift'],
-\       'description': 'Apply apple/swift-format to a file.',
 \   },
 \   'phpcbf': {
 \       'function': 'ale#fixers#phpcbf#Fix',
@@ -225,11 +189,6 @@ let s:default_registry = {
 \       'function': 'ale#fixers#cmakeformat#Fix',
 \       'suggested_filetypes': ['cmake'],
 \       'description': 'Fix CMake files with cmake-format.',
-\   },
-\   'fish_indent': {
-\       'function': 'ale#fixers#fish_indent#Fix',
-\       'suggested_filetypes': ['fish'],
-\       'description': 'Format fish scripts using fish_indent.',
 \   },
 \   'gofmt': {
 \       'function': 'ale#fixers#gofmt#Fix',
@@ -346,11 +305,6 @@ let s:default_registry = {
 \       'suggested_filetypes': ['json'],
 \       'description': 'Fix JSON files with jq.',
 \   },
-\   'protolint': {
-\       'function': 'ale#fixers#protolint#Fix',
-\       'suggested_filetypes': ['proto'],
-\       'description': 'Fix Protocol Buffer files with protolint.',
-\   },
 \   'perltidy': {
 \       'function': 'ale#fixers#perltidy#Fix',
 \       'suggested_filetypes': ['perl'],
@@ -388,7 +342,7 @@ let s:default_registry = {
 \   },
 \   'ktlint': {
 \       'function': 'ale#fixers#ktlint#Fix',
-\       'suggested_filetypes': ['kt', 'kotlin'],
+\       'suggested_filetypes': ['kt'],
 \       'description': 'Fix Kotlin files with ktlint.',
 \   },
 \   'styler': {
@@ -416,11 +370,6 @@ let s:default_registry = {
 \       'suggested_filetypes': ['ada'],
 \       'description': 'Format Ada files with gnatpp.',
 \   },
-\   'nixfmt': {
-\       'function': 'ale#fixers#nixfmt#Fix',
-\       'suggested_filetypes': ['nix'],
-\       'description': 'A nix formatter written in Haskell.',
-\   },
 \   'nixpkgs-fmt': {
 \       'function': 'ale#fixers#nixpkgsfmt#Fix',
 \       'suggested_filetypes': ['nix'],
@@ -441,21 +390,16 @@ let s:default_registry = {
 \       'suggested_filetypes': ['lua'],
 \       'description': 'Fix Lua files with luafmt.',
 \   },
+\   'dhall': {
+\       'function': 'ale#fixers#dhall#Fix',
+\       'suggested_filetypes': ['dhall'],
+\       'description': 'Fix Dhall files with dhall-format.',
+\   },
 \   'ormolu': {
 \       'function': 'ale#fixers#ormolu#Fix',
 \       'suggested_filetypes': ['haskell'],
 \       'description': 'A formatter for Haskell source code.',
 \   },
-\   'ptop': {
-\       'function': 'ale#fixers#ptop#Fix',
-\       'suggested_filetypes': ['pascal'],
-\       'description': 'Fix Pascal files with ptop.',
-\   },
-\   'vfmt': {
-\       'function': 'ale#fixers#vfmt#Fix',
-\       'suggested_filetypes': ['v'],
-\       'description': 'A formatter for V source code.',
-\   }
 \}
 
 " Reset the function registry to the default entries.
