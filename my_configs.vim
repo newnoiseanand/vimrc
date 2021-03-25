@@ -13,15 +13,19 @@ Plug 'skywind3000/asyncrun.vim'
 
 call plug#end()
 
-" to use folding provided by godot plugin
-" setlocal foldmethod=expr
-" setlocal tabstop=4
-" nnoremap <buffer> <F4> :GodotRunLast<CR>
-" nnoremap <buffer> <F5> :GodotRun<CR>
-" nnoremap <buffer> <F6> :GodotRunCurrent<CR>
-" nnoremap <buffer> <F7> :GodotRunFZF<CR>
+setlocal foldlevel=0
 
-
+func! GodotSettings() abort
+    setlocal foldmethod=expr
+    setlocal tabstop=4
+    nnoremap <buffer> <F4> :GodotRunLast<CR>
+    nnoremap <buffer> <F5> :GodotRun<CR>
+    nnoremap <buffer> <F6> :GodotRunCurrent<CR>
+    nnoremap <buffer> <F7> :GodotRunFZF<CR>
+endfunc
+augroup godot | au!
+    au FileType gdscript call GodotSettings()
+augroup end
 
 " coc stuff
 
@@ -90,3 +94,5 @@ function! <SID>GDScriptFormat()
 endfunction
 
 autocmd BufWritePre *.gd :call <SID>GDScriptFormat()
+
+set number
