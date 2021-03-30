@@ -11,7 +11,12 @@ Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'skywind3000/asyncrun.vim'
 
+Plug 'Lenovsky/nuake'
+
 call plug#end()
+
+let g:nuake_position = "top"
+let g:nuake_size = 0.33
 
 setlocal foldlevel=0
 
