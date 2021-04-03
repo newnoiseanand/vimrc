@@ -11,6 +11,8 @@ Plug 'mengelbrecht/lightline-bufferline'
 
 Plug 'skywind3000/asyncrun.vim'
 
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 setlocal foldlevel=0
@@ -99,7 +101,7 @@ set number
 
 " lightline
 let g:lightline = {
-      \ 'colorscheme': 'powerline',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
       \ },
@@ -126,3 +128,6 @@ let g:lightline = {
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
       \ }
+
+let g:lightline#bufferline#enable_devicons = 1
+let g:lightline#bufferline#enable_nerdfont = 1
