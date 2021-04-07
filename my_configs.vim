@@ -36,8 +36,8 @@ augroup end
 
 noremap <SPACE> <Nop>
 let mapleader = " "
-map <leader>tt :to term<CR>
-map <leader>bt :bo term<CR>
+map <leader>ttt :to term<CR>
+map <leader>btt :bo term<CR>
 
 
 " coc stuff
