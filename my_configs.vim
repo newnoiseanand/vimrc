@@ -15,6 +15,8 @@ Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
+" Godot fold attempts
+
 setlocal foldlevel=0
 
 func! GodotSettings() abort
@@ -28,6 +30,15 @@ endfunc
 augroup godot | au!
     au FileType gdscript call GodotSettings()
 augroup end
+
+
+" dope custom mappings
+
+noremap <SPACE> <Nop>
+let mapleader = " "
+map <leader>tt :to term<CR>
+map <leader>bt :bo term<CR>
+
 
 " coc stuff
 
