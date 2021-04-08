@@ -1,3 +1,5 @@
+set t_Co=256
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'habamax/vim-godot'
