@@ -13,23 +13,26 @@ Plug 'skywind3000/asyncrun.vim'
 
 Plug 'ryanoasis/vim-devicons'
 
+Plug 'pseewald/vim-anyfold'
+
 call plug#end()
 
 " Godot fold attempts
 
 setlocal foldlevel=0
-
-func! GodotSettings() abort
-    setlocal foldmethod=expr
-    setlocal tabstop=4
-    nnoremap <buffer> <F4> :GodotRunLast<CR>
-    nnoremap <buffer> <F5> :GodotRun<CR>
-    nnoremap <buffer> <F6> :GodotRunCurrent<CR>
-    nnoremap <buffer> <F7> :GodotRunFZF<CR>
-endfunc
-augroup godot | au!
-    au FileType gdscript call GodotSettings()
-augroup end
+autocmd Filetype gdscript AnyFoldActivate 
+" 
+" func! GodotSettings() abort
+"     setlocal foldmethod=expr
+"     setlocal tabstop=4
+"     nnoremap <buffer> <F4> :GodotRunLast<CR>
+"     nnoremap <buffer> <F5> :GodotRun<CR>
+"     nnoremap <buffer> <F6> :GodotRunCurrent<CR>
+"     nnoremap <buffer> <F7> :GodotRunFZF<CR>
+" endfunc
+" augroup godot | au!
+"     au FileType gdscript call GodotSettings()
+" augroup end
 
 
 " dope custom mappings
