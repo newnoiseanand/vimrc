@@ -40,7 +40,7 @@ autocmd Filetype gdscript AnyFoldActivate
 " dope custom mappings
 
 noremap <SPACE> <Nop>
-let mapleader = " "
+let mapleader = "\\"
 map <leader>t :to term<CR>
 map <leader>jt :bo term<CR>
 
