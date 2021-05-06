@@ -129,7 +129,7 @@ set number
 let g:lightline = {
       \ 'colorscheme': 'deus',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'tabline': {
       \   'left': [ ['buffers'] ],
@@ -139,6 +139,9 @@ let g:lightline = {
       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
       \   'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}'
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
       \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
