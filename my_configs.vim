@@ -23,9 +23,47 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
 
 Plug 'rust-lang/rust.vim'
 
+Plug 'mileszs/ack.vim'
+
+Plug 'Rigellute/shades-of-purple.vim'
+
+" Below is Hopin related
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+
 call plug#end()
 
-" Godot fold attempts
+" use ripgrep w/ ack
+
+" Use ripgrep for searching ⚡️
+" Options include:
+" --vimgrep -&gt; Needed to parse the rg response properly for ack.vim
+" --type-not sql -&gt; Avoid huge sql file dumps as it slows down the search
+" --smart-case -&gt; Search case insensitive if all lowercase pattern, Search case sensitively otherwise
+let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
+
+" Auto close the Quickfix list after pressing '&lt;enter&gt;' on a list item
+let g:ack_autoclose = 1
+
+" Any empty ack search will search for the work the cursor is on
+let g:ack_use_cword_for_empty_search = 1
+
+" Don't jump to first match
+cnoreabbrev Ack Ack!
+
+" Maps &lt;leader&gt;/ so we're ready to type the search keyword
+nnoremap &lt;Leader&gt;/ :Ack!&lt;Space&gt;
+" }}}
+
+" Navigate quickfix list with ease
+nnoremap &lt;silent&gt; [q :cprevious&lt;CR&gt;
+nnoremap &lt;silent&gt; ]q :cnext&lt;CR&gt;</code>
+
+
+
+" " Godot fold attempts
 
 setlocal foldlevel=0
 autocmd Filetype gdscript AnyFoldActivate 
@@ -54,6 +92,8 @@ map <leader>jt :bo term<CR>
 " coc stuff
 "
 "
+
+let g:coc_global_extensions = ['coc-solargraph']
 
 highlight CocFloating ctermbg=black ctermfg=magenta
 
