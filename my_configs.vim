@@ -27,6 +27,8 @@ Plug 'mileszs/ack.vim'
 
 Plug 'Rigellute/shades-of-purple.vim'
 
+Plug 'itchyny/calendar.vim'
+
 " Below is Hopin related
 
 Plug 'prettier/vim-prettier', {
@@ -180,9 +182,6 @@ let g:lightline = {
       \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
       \   'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}'
       \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead',
-      \ },
       \ 'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
       \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
@@ -195,8 +194,22 @@ let g:lightline = {
       \   'buffers': 'tabsel'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
+      \ 'subseparator': { 'left': '', 'right': '' },
+      \ 'component_function': {
+      \   'filetype': 'MyFiletype',
+      \   'fileformat': 'MyFileformat',
+      \   'gitbranch': 'FugitiveHead'
       \ }
+      \ }
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
 
 let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#enable_nerdfont = 1
