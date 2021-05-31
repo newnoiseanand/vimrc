@@ -213,3 +213,9 @@ endfunction
 
 let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#enable_nerdfont = 1
+
+
+" snipmate legacy fix
+
+let g:snipMate = { 'snippet_version' : 1  }
+
