@@ -216,6 +216,8 @@ let g:lightline#bufferline#enable_nerdfont = 1
 
 
 " snipmate legacy fix
-
 let g:snipMate = { 'snippet_version' : 1  }
 
+
+" prevent NERD tree from loading at start
+let g:NERDTreeHijackNetrw=0
