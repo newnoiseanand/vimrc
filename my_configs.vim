@@ -168,8 +168,9 @@ autocmd BufWritePre *.gd :call <SID>GDScriptFormat()
 set number
 
 " lightline
+let g:shades_of_purple_lightline = 1
 let g:lightline = {
-      \ 'colorscheme': 'deus',
+      \ 'colorscheme': 'shades_of_purple',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
