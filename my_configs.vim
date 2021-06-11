@@ -35,7 +35,15 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
+" End Hopin related stuff
+
 call plug#end()
+
+" set ctrlp to read whole dir
+
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
+
 
 " use ripgrep w/ ack
 
